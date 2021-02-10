@@ -5,6 +5,7 @@
 }
 
 <h2>Order details</h2>
+
 @if (ViewBag.Message != null)
 {
     <h3>@ViewBag.Message</h3>
@@ -85,11 +86,7 @@ else
 
     <br />
     <a href="#" class="buynow btn btn-primary pull-right">Buy now</a>
-
-
 }
-
-
 
 
 @section Scripts {
@@ -191,17 +188,14 @@ else
                 var url = "/mealorder/BuyNow";
 
                 $("ajaxbg").show();
-
-                //return some json
+               
                 $.post(url, {}, function (data) {
-                    $(".ajaxbg span").text("Thanks for your order");
-                    //Not using email confirmation
+                    $(".ajaxbg span").text("Thanks for your order");                 
 
                     //TODO add a thank you message and a delay
                     location.reload();
                 });
             })
-
         });
     </script>
 }

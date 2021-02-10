@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Restaurant.Areas.Admin.Models.OrderAdminVM>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+@if (!Model.Any())
+{
+    <h3>No orders at the moment</h3>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Order Number
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Order details
+            </th>
+            <th>
+                Order Created At
+            </th>
+            <th>
+                Total
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+
+        <td>
+            @foreach (var orderedMeal in item.MealsAndQuantities) //Looping through the dictionary
+            {
+                @orderedMeal.Key @: x @orderedMeal.Value
+                <br />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderCreatedAt)
+        </td>
+        <td>
+            £@Html.DisplayFor(modelItem => item.Total)
+        </td>
+    </tr>
+        }
+
+    </table>
+
+}
+

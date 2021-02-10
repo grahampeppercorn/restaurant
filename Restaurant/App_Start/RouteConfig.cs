@@ -17,6 +17,7 @@ namespace Restaurant
 
             routes.MapRoute("MealOrder", "MealOrder/{action}/{id}", new { controller = "MealOrder", action = "Index", id = UrlParameter.Optional }, new[] { "Restaurant.Controllers" });
 
+            routes.MapRoute("Account", "Account/{action}/{id}", new { controller = "Account", action = "Index", id = UrlParameter.Optional }, new[] { "Restaurant.Controllers" });
 
             routes.MapRoute(
                 name: "Default",

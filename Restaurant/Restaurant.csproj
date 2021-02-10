@@ -136,6 +136,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
+    <Compile Include="Areas\Admin\Models\OrderAdminVM.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MealOrderController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
@@ -145,9 +147,20 @@
     <Compile Include="Models\DTOs\CategoryDTO.cs" />
     <Compile Include="Models\DTOs\Db.cs" />
     <Compile Include="Models\DTOs\MealDTO.cs" />
+    <Compile Include="Models\DTOs\OrderDetailsDTO.cs" />
+    <Compile Include="Models\DTOs\OrderDTO.cs" />
+    <Compile Include="Models\DTOs\RoleDTO.cs" />
+    <Compile Include="Models\DTOs\UserDTO.cs" />
+    <Compile Include="Models\DTOs\UserRoleDTO.cs" />
+    <Compile Include="Models\ViewModels\Account\CustomerOrdersVM.cs" />
+    <Compile Include="Models\ViewModels\Account\LoginUserVM.cs" />
+    <Compile Include="Models\ViewModels\Account\UserNavigationPartialVM.cs" />
+    <Compile Include="Models\ViewModels\Account\UserProfileVM.cs" />
+    <Compile Include="Models\ViewModels\Account\UserVM.cs" />
     <Compile Include="Models\ViewModels\Order\MealOrderVM.cs" />
     <Compile Include="Models\ViewModels\Restaurant\CategoryVM.cs" />
     <Compile Include="Models\ViewModels\Restaurant\MealVM.cs" />
+    <Compile Include="Models\ViewModels\Restaurant\OrderVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +187,7 @@
     <Content Include="Areas\Admin\Views\Restaurant\AddMeal.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\Meals.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\EditMeal.cshtml" />
+    <Content Include="Areas\Admin\Views\Restaurant\Orders.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
@@ -213,6 +227,11 @@
     <Content Include="Views\MealOrder\OrderPartial.cshtml" />
     <Content Include="Views\MealOrder\Index.cshtml" />
     <Content Include="Views\MealOrder\AddToOrderPartial.cshtml" />
+    <Content Include="Views\Account\CreateAccount.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\UserNavigationPartial.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Account\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />

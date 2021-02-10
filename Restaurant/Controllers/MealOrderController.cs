@@ -49,7 +49,7 @@ namespace Restaurant.Controllers
 
                 foreach (var item in list)
                 {
-                    //BUGFIX forgot this bit so it was resetting the cart to empty on refresh
+                    //BUGFIX forgot this bit so it was resetting to empty on refresh
                     quantity += item.Quantity;
                     price += item.Quantity * item.Price;
                 }
@@ -76,10 +76,10 @@ namespace Restaurant.Controllers
             {
                 MealDTO meal = db.Meals.Find(id);
 
-                //Check if the product is already in the cart
+                //Check if the meal is already in the order
                 var mealsInOrder = order.FirstOrDefault(c => c.MealId == id);
 
-                //If not in cart, add new one
+                //If not in order, add new one
                 if (mealsInOrder == null)
                 {
                     order.Add(new MealOrderVM()
@@ -144,9 +144,9 @@ namespace Restaurant.Controllers
             List<MealOrderVM> order = Session["order"] as List<MealOrderVM>;
 
             using (Db db = new Db())
-            {                
+            {
                 MealOrderVM model = order.FirstOrDefault(c => c.MealId == mealId);
-               
+
                 if (model.Quantity > 1)
                 {
                     model.Quantity--;
@@ -156,25 +156,67 @@ namespace Restaurant.Controllers
                     model.Quantity = 0;
                     order.Remove(model);
                 }
-               
+
                 var result = new { quantity = model.Quantity, price = model.Price };
-                               
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 
-        //GET /Cart/RemoveProduct
+        //GET /MealOrder/Remove
 
         public void Remove(int mealId)
-        {          
+        {
             List<MealOrderVM> order = Session["order"] as List<MealOrderVM>;
 
             using (Db db = new Db())
-            {                
+            {
                 MealOrderVM model = order.FirstOrDefault(c => c.MealId == mealId);
-               
+
                 order.Remove(model);
             }
+        }
+        // POST: /MealOrder/BuyNow
+        public void BuyNow()
+        {
+
+            List<MealOrderVM> order = Session["order"] as List<MealOrderVM>;
+
+            string username = User.Identity.Name;
+
+            using (Db db = new Db())
+            {
+                OrderDTO orderDTO = new OrderDTO();
+
+                var query = db.Users.FirstOrDefault(u => u.Username == username);
+                int userId = query.Id;
+
+                orderDTO.UserId = userId;
+                orderDTO.OrderCreatedAt = DateTime.Now;
+
+                db.Orders.Add(orderDTO);
+
+                db.SaveChanges();
+
+                int orderId = orderDTO.OrderId;
+
+                OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
+
+                // Loop through the order
+                foreach (var item in order)
+                {
+                    orderDetailsDTO.OrderId = orderId;
+                    orderDetailsDTO.UserId = userId;
+                    orderDetailsDTO.MealId = item.MealId;
+                    orderDetailsDTO.Quantity = item.Quantity;
+
+                    db.OrderDetails.Add(orderDetailsDTO);
+
+                    db.SaveChanges();
+                }
+            }
+            //Reset session
+            Session["order"] = null;
         }
     }
 }

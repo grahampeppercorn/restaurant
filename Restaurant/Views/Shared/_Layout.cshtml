@@ -23,24 +23,90 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @*Login / logout stuff*@
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>
+                            <a href="/account/logout">Log out</a>
+                        </li>
+                    }
+                    else
+                    {
+                        if (ViewBag.Title == "Login")
+                        {
+                            <li class="active">
+                                <a href="/account/Login">Log in</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="/account/Login">Log in</a>
+                            </li>
+                        }
+                    }
+
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        if (ViewBag.Title == "My details")
+                        {
+                            <li class="active">
+                                @Html.Action("UserNavigationPartial", "Account", new { area = "" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.Action("UserNavigationPartial", "Account", new { area = "" })
+                            </li>
+                        }
+                    }
                 </ul>
 
-                <ul class="navbar-collapse collapse navbar-right">
-                    @Html.Action("OrderPartial", "MealOrder")                    
-                </ul>
+
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <ul class="navbar-collapse collapse navbar-right adminarea">
+                        <li>
+                            <a href="~/admin/dashboard">Admin</a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    if (ViewBag.Title != "Order Details")
+                    {
+                        <ul class="navbar-collapse collapse navbar-right">
+                            @Html.Action("OrderPartial", "MealOrder")
+                        </ul>
+
+                    }
+                }
 
             </div>
         </div>
     </div>
     <div class="container body-content">
-        <div class="row">
+        <div class="col-xs-12 col-md-2">
+
+            @if (
+                ViewBag.Title != "Create account" &&
+                 ViewBag.Title != "Login" &&
+                 ViewBag.Title != "My details"               
+                )
+            {
             <div class="col-xs-12 col-md-2">
                 @Html.Action("CategoryMenuPartial", "Restaurant")
             </div>
 
-        </div>
+            }
+                       
 
-        @RenderBody()
+        </div>
+        <div class="col-xs-12 col-md-10">
+            @RenderBody()
+        </div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - The Restaurant</p>

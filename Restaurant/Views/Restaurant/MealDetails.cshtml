@@ -17,12 +17,12 @@
         <br />
         £@Html.DisplayFor(model => model.Price)
         <br />
-        @*@if (Request.IsAuthenticated)
-            //TODO Can't add to cart unless you're logged in*@
-
-        <div class="addtoorder">
-            <a href="#" class="addtoorder">Add to order</a>
-        </div>
+        @if (Request.IsAuthenticated) //Sets it so you have to be logged in to add meals to an order
+        {
+            <div class="addtoorder">
+                <a href="#" class="addtoorder">Add to order</a>
+            </div>
+        }
     </div>
 </div>
 <hr />

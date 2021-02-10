@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using Restaurant.Areas.Admin.Models;
 using Restaurant.Models.DTOs;
 using Restaurant.Models.ViewModels.Restaurant;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Restaurant.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RestaurantController : Controller
     {
         // GET: Admin/Restaurant/Categories
@@ -215,9 +217,72 @@ namespace Restaurant.Areas.Admin.Controllers
             return View(model);
         }
 
-        //TODO Edit and delete methods if time
+
+        /// 
+        /// ////////////////////////
+        ///   //TODO add Edit and delete methods if time
+        ///
+        /// 
 
 
+        // POST: Admin/Restaurant/Orders
+        public ActionResult Orders()
+        {
+            List<OrderAdminVM> orderAdmin = new List<OrderAdminVM>();
 
+            using (Db db = new Db())
+            {                
+                List<OrderVM> orders = db.Orders
+                    .ToArray()
+                    .Select(o => new OrderVM(o))
+                    .ToList();
+
+                //Loop through list of OrderVM
+                foreach (var order in orders)
+                {
+                    //init product dictionary
+                    Dictionary<string, int> mealsAndQuantities = new Dictionary<string, int>();
+                                        
+                    decimal total = 0m;
+
+                    //Init list of orderdetails dtos
+                    List<OrderDetailsDTO> orderDetailsList = db.OrderDetails
+                        .Where(o => o.OrderId == order.OrderId)
+                        .ToList();
+                                       
+                    UserDTO user = db.Users
+                        .Where(u => u.Id == order.UserId)
+                        .FirstOrDefault();
+
+                    string username = user.Username;
+
+                    //loop through list of orderdetails dtos
+                    foreach (var orderDetails in orderDetailsList)
+                    {                        
+                        MealDTO meal = db.Meals
+                            .Where(p => p.Id == orderDetails.MealId)
+                            .FirstOrDefault();
+
+                        decimal price = meal.Price;
+                        string mealName = meal.Name;
+                        
+                        mealsAndQuantities.Add(mealName, orderDetails.Quantity);
+                       
+                        total += orderDetails.Quantity * price;
+                    }
+
+                    //add to orderAdmin list
+                    orderAdmin.Add(new OrderAdminVM()
+                    {
+                        OrderNumber = order.OrderId,
+                        Username = username,
+                        Total = total,
+                        MealsAndQuantities = mealsAndQuantities,
+                        OrderCreatedAt = order.OrderCreatedAt
+                    });
+                }
+            }         
+            return View(orderAdmin);
+        }
     }
 }
