@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Restaurant.Models.ViewModels.Restaurant.MealVM>
+
+@{
+    ViewBag.Title = "Meals";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<h2>Meals</h2>
+
+<select id="SelectCategory" name="SelectCategory">
+
+    <option value="0">All</option>
+
+    @foreach (var item in ViewBag.Categories)
+    {
+        if (ViewBag.SelectedCategory == item.Value)
+        {
+            <option selected="selected" value="@item.Value">@item.Text</option>
+        }
+        else
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    }
+</select>
+<br />
+<br />
+
+<p>
+    @Html.ActionLink("Add new meal", "AddMeal")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var meal in ViewBag.OnePageOfProducts)
+    {
+        <tr>
+            <td>
+                @meal.Name
+            </td>
+            <td>
+                @meal.Description
+            </td>
+            <td>
+                £@meal.Price
+            </td>
+            <td>
+                <a href="/admin/restaurant/EditMeal/@meal.Id">
+                    <img src="/Images/Uploads/Meals/@meal.Id/Thumbs/@meal.Image" />
+                </a>
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditMeal", new { id = meal.Id }) |
+                @Html.ActionLink("Delete", "DeleteMeal", new { id = meal.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Meals", new { page, categoryId = ViewBag.SelectedCategory }))
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+    <script>
+        //Delete meals from category
+        $(function () {
+            $("#SelectCategory").on("change", function () {
+                var url = $(this).val();
+
+                if (url) {
+                    window.location = "/admin/restaurant/Meals?categoryId=" + url;
+                }
+                return false;
+            });
+
+            $("a.delete").click(function () {
+                if (!confirm("Are you sure you want to delete?")) return false;
+            });
+        });
+    </script>
+}

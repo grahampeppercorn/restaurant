@@ -1,0 +1,120 @@
+﻿@model Restaurant.Models.ViewModels.Restaurant.MealVM
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2>@Model.Name</h2>
+<br />
+
+
+<div class="row">
+    <div class="col-xs-12 col-md-4">
+        <img src="~/Images/Uploads/Meals/@Model.Id/Thumbs/@Model.Image" alt="" />
+    </div>
+    <div class="col-xs-12 col-md-8">
+        @Html.DisplayFor(model => model.Description)
+        <br />
+        £@Html.DisplayFor(model => model.Price)
+        <br />
+        @*@if (Request.IsAuthenticated)
+            //TODO Can't add to cart unless you're logged in*@
+
+        <div class="addtoorder">
+            <a href="#" class="addtoorder">Add to order</a>
+        </div>
+    </div>
+</div>
+<hr />
+@section Scripts{
+
+    <script>
+         //add to cart
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+                var url = "/order/AddToOrderPartial"
+                $.get(url, { id: @Model.Id}, function (data) {
+                    $(".ajaxcart").html(data);
+                })
+            });
+    </script>
+}
+
+
+
+
+
+
+@*<h4>MealVM</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Url)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Url)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AmountInStock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AmountInStock)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

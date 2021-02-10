@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Restaurant.Models.ViewModels.Restaurant.MealVM>
+
+@{
+    ViewBag.Title = ViewBag.CategoryName;
+}
+
+<h2>@ViewBag.CategoryName</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                £@Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            <td>
+                <a href="/restaurant/meal-details/@item.Url">
+                    <img src="/Images/Uploads/Meals/@item.Id/Thumbs/@item.Image" alt="" />
+                </a>
+            </td>
+            <td>
+                <a href="/restaurant/meal-details/@item.Url">Details</a>
+            </td>
+        </tr>
+    }
+
+</table>

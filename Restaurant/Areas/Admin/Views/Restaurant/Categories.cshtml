@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Restaurant.Models.ViewModels.Restaurant.CategoryVM>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+<div class="new-category">
+    <input type="text" id="newCatName" />
+    <p>
+        <a href="#" id="newCatLink">Add a new category</a>        
+    </p>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </td>        
+        <td>           
+            @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id }, new { @class = "delete" })
+        </td>
+    </tr>
+}
+
+</table>

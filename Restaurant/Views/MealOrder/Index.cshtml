@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Restaurant.Models.ViewModels.Order.MealOrderVM>
+
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<h2>Order details</h2>
+@if (ViewBag.Message != null)
+{
+    <h3>@ViewBag.Message</h3>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MealName)
+                </td>
+                <td class="quantity@(item.MealId)">
+                    @*BUGFIX Needed the brackets otherwise got an error*@
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    £@Html.DisplayFor(modelItem => item.Price)
+                    @*BUGFIX Forgot to add £ sign*@
+                </td>
+                <td>
+                    <img src="~/Images/Uploads/Meals/@item.MealId/Thumbs/@item.Image" alt="" />
+                </td>
+
+
+                <td>
+                    <a href="#" class="increase" data-id="@item.MealId">+</a>
+                    <a href="#" class="decrease" data-id="@item.MealId">-</a>
+                    <a href="#" class="remove" data-id="@item.MealId">Remove</a>
+                </td>
+
+                <td class="total@(item.MealId)">
+                    @*So I can manupulate the total*@
+                    £@Html.DisplayFor(modelItem => item.Total)
+                </td>
+
+            </tr>
+        }
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="overalltotal">
+                <strong>Overall total</strong> £<span>@ViewBag.OverallTotal</span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br />
+    <a href="#" class="buynow btn btn-primary pull-right">Buy now</a>
+
+
+}
+
+
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            //Increase
+
+            $("a.increase").click(function (e) {
+                e.preventDefault();
+                var mealId = $(this).data("id");
+                var url = "/mealorder/Increase";
+
+                //return some json
+                $.getJSON(url, { mealId: mealId }, function (data) {
+                    //Set html of <td>
+                    $("td.quantity" + mealId).html(data.quantity);
+
+                    //get the price
+                    var price = data.quantity * data.price;
+                    
+                    var priceHtml = "£" + price.toFixed(2); // pretty it up (TODO Check if this is needed)
+
+                    $("td.total" + mealId).html(priceHtml);
+
+                    //modify overall (grand) total
+                    var ot = parseFloat($("td.overalltotal span").text());
+                    //recalculate on the fly
+                    var overallTotal = (ot + data.price).toFixed(2);
+
+                    $("td.overalltotal span").text(overallTotal);
+                });
+            });
+                        
+
+            //Decrease
+
+            $("a.decrease").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+
+                var mealId = $(this).data("id");
+                var url = "/mealorder/Decrease";
+
+              
+                $.getJSON(url, { mealId: mealId }, function (data) {
+
+                    //Check if quantity is already at 0
+
+                    if (data.quantity == 0) {
+                        //fade out tr and reload
+                        $this.parent().parent().fadeOut("fast", function () {
+                            location.reload();
+                        });  //TODO Check this
+
+                    } else {
+                        //Set html of <td>
+                        $("td.quantity" + mealId).html(data.quantity); //set html to data.qty
+
+                        //get the price
+                        var price = data.quantity * data.price;
+                        // pretty it up (TODO Check if this is needed)
+                        var priceHtml = "£" + price.toFixed(2);
+
+                        $("td.total" + mealId).html(priceHtml);
+
+                        //modify overall (grand) total
+                        var ot = parseFloat($("td.overalltotal span").text());
+                        var overallTotal = (ot - data.price).toFixed(2);
+
+                        $("td.overalltotal span").text(overallTotal);
+                    }
+                });
+            });
+
+            //Remove
+
+            $("a.remove").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this); //TODO - remove this as probably not needed
+
+                var mealId = $(this).data("id");
+                var url = "/mealorder/Remove";
+                
+                $.get(url, { mealId: mealId }, function (data) {
+                    location.reload();
+                });
+            });
+
+            //Buy now
+
+
+
+            $("a.buynow").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var url = "/mealorder/BuyNow";
+
+                $("ajaxbg").show();
+
+                //return some json
+                $.post(url, {}, function (data) {
+                    $(".ajaxbg span").text("Thanks for your order");
+                    //Not using email confirmation
+
+                    //TODO add a thank you message and a delay
+                    location.reload();
+                });
+            })
+
+        });
+    </script>
+}

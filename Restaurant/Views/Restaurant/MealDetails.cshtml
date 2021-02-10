@@ -1,0 +1,48 @@
+﻿@model Restaurant.Models.ViewModels.Restaurant.MealVM
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2>@Model.Name</h2>
+<br />
+
+
+<div class="row">
+    <div class="col-xs-12 col-md-4">
+        <img src="~/Images/Uploads/Meals/@Model.Id/Thumbs/@Model.Image" alt="" />
+    </div>
+    <div class="col-xs-12 col-md-8">
+        @Html.DisplayFor(model => model.Description)
+        <br />
+        £@Html.DisplayFor(model => model.Price)
+        <br />
+        @*@if (Request.IsAuthenticated)
+            //TODO Can't add to cart unless you're logged in*@
+
+        <div class="addtoorder">
+            <a href="#" class="addtoorder">Add to order</a>
+        </div>
+    </div>
+</div>
+<hr />
+
+@section Scripts{
+    <script>
+        //add to cart
+        $(function () {
+
+            $("a.addtoorder").click(function (e) {
+                e.preventDefault();
+                var url = "/mealorder/AddToOrderPartial"
+                $.get(url, { id: @Model.Id}, function (data) {
+                    $(".ajaxorder").html(data);
+                })
+            });
+
+        });
+
+
+
+    </script>
+}
