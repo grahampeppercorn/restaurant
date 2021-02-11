@@ -177,6 +177,22 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Uploads\Meals\2\6.jpg" />
+    <Content Include="Images\Uploads\Meals\2\Thumbs\6.jpg" />
+    <Content Include="Images\Uploads\Meals\3\doughballs.jpg" />
+    <Content Include="Images\Uploads\Meals\3\Thumbs\doughballs.jpg" />
+    <Content Include="Images\Uploads\Meals\4\pizza-bread-1.jpg" />
+    <Content Include="Images\Uploads\Meals\4\Thumbs\pizza-bread-1.jpg" />
+    <Content Include="Images\Uploads\Meals\5\pizza-bread-1.jpg" />
+    <Content Include="Images\Uploads\Meals\5\Thumbs\pizza-bread-1.jpg" />
+    <Content Include="Images\Uploads\Meals\6\pizza-bread-1.jpg" />
+    <Content Include="Images\Uploads\Meals\6\Thumbs\pizza-bread-1.jpg" />
+    <Content Include="Images\Uploads\Meals\7\9i.jpg" />
+    <Content Include="Images\Uploads\Meals\7\Thumbs\9i.jpg" />
+    <Content Include="Images\Uploads\Meals\8\mozz-sticks.jpg" />
+    <Content Include="Images\Uploads\Meals\8\Thumbs\mozz-sticks.jpg" />
+    <Content Include="Images\Uploads\Meals\9\6.jpg" />
+    <Content Include="Images\Uploads\Meals\9\Thumbs\6.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -231,10 +247,10 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserNavigationPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
-    <Content Include="Views\Account\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Images\Uploads\Meals\1\Thumbs\" />
     <Folder Include="Views\Pages\" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,12 @@
 
 @if (ViewBag.Message != null)
 {
-    <h3>@ViewBag.Message</h3>
+    <p>@ViewBag.Message</p>
+    <br />
+    <br />
+    <br />
+    <br />
+
 }
 else
 {
@@ -57,7 +62,11 @@ else
 
 
                 <td>
-                    <a href="#" class="increase" data-id="@item.MealId">+</a>
+                    @if (item.Quantity < 5)
+                    {
+                        <a href="#" class="increase" data-id="@item.MealId">+</a>
+                    }
+
                     <a href="#" class="decrease" data-id="@item.MealId">-</a>
                     <a href="#" class="remove" data-id="@item.MealId">Remove</a>
                 </td>
@@ -106,7 +115,7 @@ else
 
                     //get the price
                     var price = data.quantity * data.price;
-                    
+
                     var priceHtml = "£" + price.toFixed(2); // pretty it up (TODO Check if this is needed)
 
                     $("td.total" + mealId).html(priceHtml);
@@ -119,7 +128,7 @@ else
                     $("td.overalltotal span").text(overallTotal);
                 });
             });
-                        
+
 
             //Decrease
 
@@ -131,7 +140,7 @@ else
                 var mealId = $(this).data("id");
                 var url = "/mealorder/Decrease";
 
-              
+
                 $.getJSON(url, { mealId: mealId }, function (data) {
 
                     //Check if quantity is already at 0
@@ -171,7 +180,7 @@ else
 
                 var mealId = $(this).data("id");
                 var url = "/mealorder/Remove";
-                
+
                 $.get(url, { mealId: mealId }, function (data) {
                     location.reload();
                 });
@@ -188,9 +197,9 @@ else
                 var url = "/mealorder/BuyNow";
 
                 $("ajaxbg").show();
-               
+
                 $.post(url, {}, function (data) {
-                    $(".ajaxbg span").text("Thanks for your order");                 
+                    $(".ajaxbg span").text("Thanks for your order");
 
                     //TODO add a thank you message and a delay
                     location.reload();

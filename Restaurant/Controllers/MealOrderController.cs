@@ -93,9 +93,12 @@ namespace Restaurant.Controllers
                 }
                 else
                 {
-                    // If it is, then increment it
-                    //TODO Prevent this going above 5
-                    mealsInOrder.Quantity++;
+                    // If it is, then increment it but not over 5                    
+
+                    if (mealsInOrder.Quantity < 5)
+                    {
+                        mealsInOrder.Quantity++;
+                    }
                 }
             }
 
@@ -124,12 +127,15 @@ namespace Restaurant.Controllers
 
             using (Db db = new Db())
             {
-
                 MealOrderVM model = order.FirstOrDefault(m => m.MealId == mealId);
 
                 //Increase
-                //TODO Add if to limit to 5
-                model.Quantity++;
+                //TODO Add if to limit to 5 - done but need to check
+
+                if (model.Quantity < 5)
+                {
+                    model.Quantity++;
+                }
 
                 //Store the needed data
                 var result = new { quantity = model.Quantity, price = model.Price };

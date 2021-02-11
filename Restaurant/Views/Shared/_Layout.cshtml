@@ -11,12 +11,13 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
+                <img src="~/Images/Uploads/restaurant.png" alt="Le Restaurant" width="80" />
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("The Restaurant", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -36,13 +37,13 @@
                         if (ViewBag.Title == "Login")
                         {
                             <li class="active">
-                                <a href="/account/Login">Log in</a>
+                                <a href="/account/Login">Log in / register</a>
                             </li>
                         }
                         else
                         {
                             <li>
-                                <a href="/account/Login">Log in</a>
+                                <a href="/account/Login">Log in / register</a>
                             </li>
                         }
                     }
@@ -109,7 +110,7 @@
         </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - The Restaurant</p>
+            <p>&copy; @DateTime.Now.Year - Le Restaurant</p>
         </footer>
     </div>
 
