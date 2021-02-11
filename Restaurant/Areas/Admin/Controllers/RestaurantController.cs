@@ -82,6 +82,7 @@ namespace Restaurant.Areas.Admin.Controllers
                 meal.Description = model.Description;
                 meal.Price = model.Price;
                 meal.CategoryId = model.CategoryId;
+                meal.AmountInStock = model.AmountInStock;
 
                 //Get the category name
                 CategoryDTO categoryDTO = db.Categories.FirstOrDefault(c => c.Id == model.CategoryId);
