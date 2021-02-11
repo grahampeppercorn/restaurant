@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Admin area</title>
+    <title>@ViewBag.Title - Le Restaurant | Admin area</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -30,7 +30,7 @@
                 </ul>
 
                 <ul class="navbar-right">
-                    <li>
+                    <li style="list-style-type:none;">
                         <a href="/" class="navbar-brand">Restaurant</a>
                        
                     </li>
@@ -48,7 +48,7 @@
     </div>
 
     @Scripts.Render("~/bundles/scripts")
-    @*TODO Remember to rename scripts above if you rename it in BundleConfig*@
+    @*Remember to rename scripts above if I rename it in BundleConfig*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

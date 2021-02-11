@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Restaurant.Models.ViewModels.Order
+﻿namespace Restaurant.Models.ViewModels.Order
 {
     public class MealOrderVM
     {
@@ -11,8 +6,7 @@ namespace Restaurant.Models.ViewModels.Order
         public string MealName { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public decimal Total { get { return Quantity * Price; } }
-        //cool feature
+        public decimal Total { get { return Quantity * Price; } }        
         public string Image { get; set; }
     }
 }

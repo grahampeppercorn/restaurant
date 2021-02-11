@@ -1,10 +1,6 @@
 ﻿using Restaurant.Models.DTOs;
 using Restaurant.Models.ViewModels.Account;
-using Restaurant.Models.ViewModels.Restaurant;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -27,10 +23,8 @@ namespace Restaurant.Controllers
 
             if (!string.IsNullOrEmpty(username))
             {
-                return RedirectToAction("user-profile");
-                //TODO rename user-profile to something different
-            }
-            //Return view
+                return RedirectToAction("user-profile");                
+            }            
             return View();
         }
 
@@ -88,8 +82,7 @@ namespace Restaurant.Controllers
             using (Db db = new Db())
             {
                 UserDTO dto = db.Users.FirstOrDefault(u => u.Username == username);
-
-                //Build model
+                
                 model = new UserNavigationPartialVM()
                 {
                     FirstName = dto.FirstName,
@@ -151,7 +144,7 @@ namespace Restaurant.Controllers
                     (u => u.Username == username))
                 {
                     ModelState.AddModelError("", "The username" + model.Username + "is already in use");
-                    model.Username = "";  //reset username                  
+                    model.Username = "";  //set username to empty for security
                     return View("UserProfile", model);
                 }
 
@@ -209,7 +202,7 @@ namespace Restaurant.Controllers
                 {
                     //ModelState.AddModelError("", "Username already exists");
                     ModelState.AddModelError("", "Username " + model.Username + "already exists");
-                    model.Username = ""; //Clears username for security
+                    model.Username = "";
                     return View("CreateAccount", model);
                 }
 
@@ -217,14 +210,14 @@ namespace Restaurant.Controllers
                 {
                     FirstName = model.FirstName,
                     Surname = model.Surname,
+                    PhoneNumber = model.PhoneNumber,
                     Email = model.Email,
                     Username = model.Username,
                     Password = model.Password
                 };
 
-                //Add to DTO
+               
                 db.Users.Add(userDto);
-
                 db.SaveChanges();
 
                 //Add to userRolesDTO
@@ -240,11 +233,9 @@ namespace Restaurant.Controllers
                 db.UserRoles.Add(userRolesDto);
                 db.SaveChanges();
             }
-
-            //Create Tempdata message
+            
             TempData["SuccessMessage"] = "Thanks for registering, you can now log in";
-
-            //Redirect
+                        
             return Redirect("~/account/login");
         }
     }

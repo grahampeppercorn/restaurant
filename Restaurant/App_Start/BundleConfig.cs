@@ -13,8 +13,7 @@ namespace Restaurant
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
-            //TODO Remane scripts to customScripts
+            
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js"));

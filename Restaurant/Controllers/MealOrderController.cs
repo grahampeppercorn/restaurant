@@ -3,7 +3,6 @@ using Restaurant.Models.ViewModels.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Restaurant.Controllers
@@ -33,7 +32,6 @@ namespace Restaurant.Controllers
 
             return View(order);
         }
-
 
         public ActionResult OrderPartial()
         {
@@ -129,8 +127,7 @@ namespace Restaurant.Controllers
             {
                 MealOrderVM model = order.FirstOrDefault(m => m.MealId == mealId);
 
-                //Increase
-                //TODO Add if to limit to 5 - done but need to check
+                //Increase               
 
                 if (model.Quantity < 5)
                 {

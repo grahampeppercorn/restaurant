@@ -10,10 +10,7 @@
     <tr>
         <th>
             Name
-        </th>
-        @*<th>
-            Description
-        </th>*@
+        </th>        
         <th>
             Price
         </th>
@@ -29,10 +26,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>*@
+            
             <td>
                 £@Html.DisplayFor(modelItem => item.Price)
             </td>
@@ -47,5 +41,4 @@
             </td>
         </tr>
     }
-
 </table>

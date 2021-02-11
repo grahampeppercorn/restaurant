@@ -2,7 +2,6 @@
 using Restaurant.Areas.Admin.Models;
 using Restaurant.Models.DTOs;
 using Restaurant.Models.ViewModels.Restaurant;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -95,7 +94,7 @@ namespace Restaurant.Areas.Admin.Controllers
                 id = meal.Id;
             }           
 
-            #region Upload image
+            //Upload image
 
             // Create folder structure
             var imagesFolder = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
@@ -159,7 +158,7 @@ namespace Restaurant.Areas.Admin.Controllers
                 img.Resize(200, 200);
                 img.Save(path3);
             }
-            #endregion
+            
 
             //Redirect
             return RedirectToAction("AddMeal");
@@ -189,7 +188,7 @@ namespace Restaurant.Areas.Admin.Controllers
             return View(listOfMealVM);
         }
 
-        // GET: Admin/Shop/EditProduct
+        // GET: Admin/Restaurant/EditMeal
         [HttpGet]
         public ActionResult EditMeal(int id)
         {
@@ -207,13 +206,7 @@ namespace Restaurant.Areas.Admin.Controllers
                 model = new MealVM(dto);
                
                 model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
-
-                //TODO Delete
-                ////Get all the gallery images
-                //model.GalleryImages = Directory
-                //    .EnumerateFiles(Server
-                //    .MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thumbs"))
-                //    .Select(f => Path.GetFileName(f));
+                               
             }
             return View(model);
         }
@@ -221,7 +214,7 @@ namespace Restaurant.Areas.Admin.Controllers
 
         /// 
         /// ////////////////////////
-        ///   //TODO add Edit and delete methods if time
+        ///   //TODO add Edit POST and delete methods if time
         ///
         /// 
 

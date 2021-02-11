@@ -1,9 +1,10 @@
 ﻿using Restaurant.Models.DTOs;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Restaurant.Models.ViewModels.Account
+namespace Restaurant.Models.ViewModels.Restaurant
 {
-    public class UserVM
+    public class BookTableVM
     {
         public int Id { get; set; }
 
@@ -20,12 +21,14 @@ namespace Restaurant.Models.ViewModels.Account
         public string Email { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        public int NumberOfPeople { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateForBooking { get; set; }
 
         [Required]
-        public string ConfirmPassword { get; set; }
+        [DataType(DataType.Time)]
+        public DateTime TimeOfDay { get; set; }
     }
 }

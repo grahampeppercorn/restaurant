@@ -10,10 +10,7 @@ namespace Restaurant.Models.ViewModels.Restaurant
 {
     public class MealVM
     {
-        public MealVM()
-        {
-
-        }
+        public MealVM() { }
 
         public MealVM(MealDTO row)
         {
@@ -49,8 +46,6 @@ namespace Restaurant.Models.ViewModels.Restaurant
 
         public int AmountInStock { get; set; }
 
-        public IEnumerable<SelectListItem> Categories { get; set; } //use when adding a product to choose category
-        //public IEnumerable<string> GalleryImages { get; set; }
-        //TODO - Maybe delete
+        public IEnumerable<SelectListItem> Categories { get; set; } //use when adding a product to choose category        
     }
 }
