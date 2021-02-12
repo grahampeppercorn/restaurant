@@ -7,12 +7,7 @@ using System.Web;
 namespace Restaurant.Models.ViewModels.Restaurant
 {
     public class OrderVM
-    {
-        public OrderVM()
-        {
-
-        }
-
+    {       
         public OrderVM(OrderDTO row)
         {
             OrderId = row.OrderId;

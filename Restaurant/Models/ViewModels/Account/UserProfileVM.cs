@@ -7,11 +7,6 @@ namespace Restaurant.Models.ViewModels.Account
 
     public class UserProfileVM
     {
-        public UserProfileVM()
-        {
-
-        }
-
         public UserProfileVM(UserDTO row)
         {
             Id = row.Id;
@@ -38,9 +33,7 @@ namespace Restaurant.Models.ViewModels.Account
 
         [Required]
         public string Username { get; set; }
-
         public string Password { get; set; }
-
         public string ConfirmPassword { get; set; }
     }
 }

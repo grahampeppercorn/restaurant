@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace Restaurant.Models.DTOs
 {
@@ -15,5 +11,6 @@ namespace Restaurant.Models.DTOs
         public DbSet<UserRoleDTO> UserRoles { get; set; }
         public DbSet<OrderDTO> Orders { get; set; }
         public DbSet<OrderDetailsDTO> OrderDetails { get; set; }
+        public DbSet<BookTableDTO> BookTables { get; set; }        
     }
 }

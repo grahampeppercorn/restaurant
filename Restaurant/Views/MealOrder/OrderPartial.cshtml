@@ -1,8 +1,9 @@
 ﻿@model Restaurant.Models.ViewModels.Order.MealOrderVM
 
 @*A div in the nav header and when the cart is manipulated, the div will get changed by ajax*@
-<div class="ajaxorder" >   
-    Current order: (@Model.Quantity) - £@Model.Price
+<div class="ajaxorder" >
+    @*TODO Do this in css*@
+    Current order: @Model.Quantity item(s) - £@Model.Price
     <br />
     @Html.ActionLink("View order", "Index")
 </div>

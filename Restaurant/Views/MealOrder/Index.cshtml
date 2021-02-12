@@ -107,22 +107,21 @@ else
                 e.preventDefault();
                 var mealId = $(this).data("id");
                 var url = "/mealorder/Increase";
-
-                //return some json
+               
                 $.getJSON(url, { mealId: mealId }, function (data) {
-                    //Set html of <td>
+                    
                     $("td.quantity" + mealId).html(data.quantity);
 
-                    //get the price
+                    
                     var price = data.quantity * data.price;
 
-                    var priceHtml = "£" + price.toFixed(2); // pretty it up (TODO Check if this is needed)
+                    var priceHtml = "£" + price.toFixed(2); // pretty it up not sure if this is needed
 
                     $("td.total" + mealId).html(priceHtml);
 
-                    //modify overall (grand) total
+                    //modify overall total
                     var ot = parseFloat($("td.overalltotal span").text());
-                    //recalculate on the fly
+                    //allows it to recalculate on the fly
                     var overallTotal = (ot + data.price).toFixed(2);
 
                     $("td.overalltotal span").text(overallTotal);
@@ -149,20 +148,18 @@ else
                         //fade out tr and reload
                         $this.parent().parent().fadeOut("fast", function () {
                             location.reload();
-                        });  //TODO Check this
+                        });  
 
                     } else {
                         //Set html of <td>
-                        $("td.quantity" + mealId).html(data.quantity); //set html to data.qty
+                        $("td.quantity" + mealId).html(data.quantity); //set html to data.quantity
 
                         //get the price
-                        var price = data.quantity * data.price;
-                        // pretty it up (TODO Check if this is needed)
+                        var price = data.quantity * data.price;                       
                         var priceHtml = "£" + price.toFixed(2);
 
                         $("td.total" + mealId).html(priceHtml);
-
-                        //modify overall (grand) total
+                        
                         var ot = parseFloat($("td.overalltotal span").text());
                         var overallTotal = (ot - data.price).toFixed(2);
 
@@ -176,7 +173,7 @@ else
             $("a.remove").click(function (e) {
                 e.preventDefault();
 
-                var $this = $(this); //TODO - remove this as probably not needed
+                var $this = $(this); //Probably not needed
 
                 var mealId = $(this).data("id");
                 var url = "/mealorder/Remove";
@@ -187,8 +184,6 @@ else
             });
 
             //Buy now
-
-
 
             $("a.buynow").click(function (e) {
                 e.preventDefault();
