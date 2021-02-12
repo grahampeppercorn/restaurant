@@ -51,7 +51,7 @@ namespace Restaurant.Controllers
                     .FirstOrDefault();
 
                 ViewBag.CategoryName = mealCategory.CategoryName;
-                //Use this viewbag category name for title h2 in the view                    
+                                 
             }            
             return View(mealVMList);
         }
