@@ -5,6 +5,23 @@ namespace Restaurant.Models.ViewModels.Account
 {
     public class UserVM
     {
+
+        public UserVM()
+        {
+
+        }
+
+        public UserVM(UserDTO row)
+        {
+            Id = row.Id;
+            FirstName = row.FirstName;
+            Surname = row.Surname;
+            PhoneNumber = row.PhoneNumber;
+            Email = row.Email;
+            Username = row.Username;
+            Password = row.Password;
+        }
+
         public int Id { get; set; }
 
         [Required]

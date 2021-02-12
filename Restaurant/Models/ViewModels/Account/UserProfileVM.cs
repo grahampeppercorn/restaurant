@@ -7,6 +7,12 @@ namespace Restaurant.Models.ViewModels.Account
 
     public class UserProfileVM
     {
+
+        public UserProfileVM()
+        {
+
+        }
+
         public UserProfileVM(UserDTO row)
         {
             Id = row.Id;
